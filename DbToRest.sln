@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbToRest.Core", "DbToRest.Core\DbToRest.Core.csproj", "{16721A5F-48AE-4178-9C09-CA7F387B2726}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbToRest.Services", "DbToRest.Services\DbToRest.Services.csproj", "{59984A9E-C57A-40DB-A380-DEB6188649FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbToRest.Tests", "DbToRest.Tests\DbToRest.Tests.csproj", "{EA33F976-257E-4F82-B111-D11F317852BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{16721A5F-48AE-4178-9C09-CA7F387B2726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16721A5F-48AE-4178-9C09-CA7F387B2726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16721A5F-48AE-4178-9C09-CA7F387B2726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59984A9E-C57A-40DB-A380-DEB6188649FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59984A9E-C57A-40DB-A380-DEB6188649FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59984A9E-C57A-40DB-A380-DEB6188649FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59984A9E-C57A-40DB-A380-DEB6188649FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA33F976-257E-4F82-B111-D11F317852BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA33F976-257E-4F82-B111-D11F317852BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA33F976-257E-4F82-B111-D11F317852BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA33F976-257E-4F82-B111-D11F317852BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
