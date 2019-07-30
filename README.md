@@ -4,3 +4,6 @@
 
 **Before Start** you need follow software
 - CouchDb
+
+## Milestone
+- Auth
