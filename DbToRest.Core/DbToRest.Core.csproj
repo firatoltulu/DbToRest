@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Authentication\" />
-    <Folder Include="Domain\" />
     <Folder Include="Extension\" />
   </ItemGroup>
 
