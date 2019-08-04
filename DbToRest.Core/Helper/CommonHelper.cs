@@ -285,5 +285,7 @@ namespace DbToRest.Core
                     result += c.ToString();
             return result;
         }
+
+        public static IDbToRestFileProvider DefaultFileProvider { get; set; }
     }
 }

@@ -10,6 +10,6 @@
 
         public string Domain { get; set; }
 
-        public string ModuleFile { get; set; }
+        public string ModuleName { get; set; }
     }
 }
