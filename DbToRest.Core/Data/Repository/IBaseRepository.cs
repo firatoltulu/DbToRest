@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace DbToRest.Core.Domain.Repository
+namespace DbToRest.Core.Data.Repository
 {
-    public interface IRepository<T> where T : class, new()
+    public interface IBaseRepository<T> where T : class, new()
     {
         IQueryable<T> Table();
 
