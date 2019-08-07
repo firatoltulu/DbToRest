@@ -1,5 +1,6 @@
 using DbToRest.Core.Exception;
 using DbToRest.Core.Infrastructure;
+using DbToRest.Core.Infrastructure.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -287,5 +288,13 @@ namespace DbToRest.Core
         }
 
         public static IDbToRestFileProvider DefaultFileProvider { get; set; }
+
+        public static bool DatabaseIsInstalled
+        {
+            get
+            {
+                return !EngineContext.Current.Resolve<DbToRestConfig>().CouchDbDataConnection.IsNullOrEmpty();
+            }
+        }
     }
 }

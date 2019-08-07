@@ -20,16 +20,11 @@ namespace DbToRest.Core.Infrastructure.Extensions
         public static IServiceProvider ConfigureApplicationServices(this IServiceCollection services,
             IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
-            //most of API providers require TLS 1.2 nowadays
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-            //add NopConfig configuration parameters
             var nopConfig = services.ConfigureStartupConfig<DbToRestConfig>(configuration.GetSection("DbToRest"));
 
-            //add hosting configuration parameters
             services.ConfigureStartupConfig<HostingConfig>(configuration.GetSection("Hosting"));
-
-            //add accessor to HttpContext
             services.AddHttpContextAccessor();
             services.AddDbToRestAntiForgery();
             services.AddDbToRestHttpSession();
@@ -44,7 +39,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
             var engine = EngineContext.Create();
             var serviceProvider = engine.ConfigureServices(services, configuration, nopConfig);
 
-            if (!DataSettingsManager.DatabaseIsInstalled)
+            if (!CommonHelper.DatabaseIsInstalled)
                 return serviceProvider;
 
             engine.Resolve<ILogService>().Info("Application started");

@@ -1,9 +1,7 @@
 ﻿using Autofac;
+using DbToRest.Core.Data.Provider;
 using DbToRest.Core.Infrastructure;
 using DbToRest.Core.Infrastructure.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DbToRest.Core
 {
@@ -13,9 +11,8 @@ namespace DbToRest.Core
 
         public void Register(ContainerBuilder builder, ITypeFinder typeFinder, DbToRestConfig config)
         {
+            builder.RegisterType<DataProvider>().As<IDataProvider>().InstancePerRequest();
             
-
-
         }
     }
 }

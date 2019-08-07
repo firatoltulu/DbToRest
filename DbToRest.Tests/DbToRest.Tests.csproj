@@ -12,4 +12,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DbToRest.Core\DbToRest.Core.csproj" />
+    <ProjectReference Include="..\DbToRest.Services\DbToRest.Services.csproj" />
+  </ItemGroup>
+
 </Project>

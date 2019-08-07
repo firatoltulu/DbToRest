@@ -55,7 +55,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
                     try
                     {
                         //check whether database is installed
-                        if (DataSettingsManager.DatabaseIsInstalled)
+                        if (CommonHelper.DatabaseIsInstalled)
                         {
                             //get current customer
                             // var currentCustomer = EngineContext.Current.Resolve<IWorkContext>().CurrentCustomer;
@@ -138,7 +138,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
         {
             void staticFileResponse(StaticFileResponseContext context)
             {
-                if (!DataSettingsManager.DatabaseIsInstalled)
+                if (!CommonHelper.DatabaseIsInstalled)
                     return;
 
                 //var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
@@ -200,7 +200,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
         public static void UseAuthentication(this IApplicationBuilder application)
         {
             //check whether database is installed
-            if (!DataSettingsManager.DatabaseIsInstalled)
+            if (!CommonHelper.DatabaseIsInstalled)
                 return;
 
             //  application.UseMiddleware<AuthenticationMiddleware>();
@@ -210,7 +210,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
         {
             application.UseRequestLocalization(options =>
             {
-                if (!DataSettingsManager.DatabaseIsInstalled)
+                if (!CommonHelper.DatabaseIsInstalled)
                     return;
 
                 //prepare supported cultures
@@ -225,7 +225,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
         public static void UseCulture(this IApplicationBuilder application)
         {
             //check whether database is installed
-            if (!DataSettingsManager.DatabaseIsInstalled)
+            if (!CommonHelper.DatabaseIsInstalled)
                 return;
 
             //application.UseMiddleware<CultureMiddleware>();
