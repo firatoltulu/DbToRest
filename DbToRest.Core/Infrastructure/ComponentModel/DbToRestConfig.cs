@@ -4,9 +4,9 @@
     {
         /**/
 
-        public string CouchDbDataConnection { get; set; }
+        public string DbDataConnection { get; set; }
 
-        public string CouchDbDatabaseName { get; set; }
+        public string DbDatabaseName { get; set; }
 
 
 

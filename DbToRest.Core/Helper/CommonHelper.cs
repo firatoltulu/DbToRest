@@ -293,7 +293,7 @@ namespace DbToRest.Core
         {
             get
             {
-                return !EngineContext.Current.Resolve<DbToRestConfig>().CouchDbDataConnection.IsNullOrEmpty();
+                return !EngineContext.Current.Resolve<DbToRestConfig>().DbDataConnection.IsNullOrEmpty();
             }
         }
     }

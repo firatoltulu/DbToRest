@@ -160,30 +160,9 @@ namespace DbToRest.Core.Infrastructure.Extensions
                 });
             }
 
-            //MVC now serializes JSON with camel case names by default, use this code to avoid it
             mvcBuilder.AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
 
-            //add custom display metadata provider
-            //mvcBuilder.AddMvcOptions(options => options.ModelMetadataDetailsProviders.Add(new NopMetadataProvider()));
 
-            //add custom model binder provider (to the top of the provider list)
-            //mvcBuilder.AddMvcOptions(options => options.ModelBinderProviders.Insert(0, new NopModelBinderProvider()));
-
-            //add fluent validation
-            //mvcBuilder.AddFluentValidation(configuration =>
-            //{
-            //    //register all available validators from Nop assemblies
-            //    var assemblies = mvcBuilder.PartManager.ApplicationParts
-            //        .OfType<AssemblyPart>()
-            //        .Where(part => part.Name.StartsWith("Nop", StringComparison.InvariantCultureIgnoreCase))
-            //        .Select(part => part.Assembly);
-            //    configuration.RegisterValidatorsFromAssemblies(assemblies);
-
-            //    //implicit/automatic validation of child properties
-            //    configuration.ImplicitlyValidateChildProperties = true;
-            //});
-
-            //register controllers as services, it'll allow to override them
             mvcBuilder.AddControllersAsServices();
 
             return mvcBuilder;

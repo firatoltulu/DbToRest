@@ -79,6 +79,7 @@ namespace DbToRest.Core
             //register type finder
             containerBuilder.RegisterInstance(typeFinder).As<ITypeFinder>().SingleInstance();
 
+
             //populate Autofac container builder with the set of registered service descriptors
             containerBuilder.Populate(services);
 

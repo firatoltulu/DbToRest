@@ -22,7 +22,9 @@ namespace DbToRest.Core.Infrastructure.Extensions
             application.UseStaticFiles();
             application.UseKeepAlive();
             application.UseAuthentication();
-            application.UseMvc();
+
+            if (EngineContext.Current.Resolve<IHostingEnvironment>().IsStaging() == false)
+                application.UseMvc();
 
 
         }
@@ -43,6 +45,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
                 application.UseExceptionHandler("/Error/Error");
             }
 
+            /*
             //log errors
             application.UseExceptionHandler(handler =>
             {
@@ -73,6 +76,7 @@ namespace DbToRest.Core.Infrastructure.Extensions
                     return Task.CompletedTask;
                 });
             });
+            */
         }
 
         public static void UsePageNotFound(this IApplicationBuilder application)
@@ -149,42 +153,43 @@ namespace DbToRest.Core.Infrastructure.Extensions
             var fileProvider = EngineContext.Current.Resolve<IDbToRestFileProvider>();
 
             application.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = staticFileResponse });
-            application.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(fileProvider.MapPath(@"Themes")),
-                RequestPath = new PathString("/Themes"),
-                OnPrepareResponse = staticFileResponse
-            });
 
-            var staticFileOptions = new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(fileProvider.MapPath(@"Plugins")),
-                RequestPath = new PathString("/Plugins"),
-                OnPrepareResponse = staticFileResponse
-            };
+            //application.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(fileProvider.MapPath(@"Themes")),
+            //    RequestPath = new PathString("/Themes"),
+            //    OnPrepareResponse = staticFileResponse
+            //});
 
-            application.UseStaticFiles(staticFileOptions);
+            //var staticFileOptions = new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(fileProvider.MapPath(@"Plugins")),
+            //    RequestPath = new PathString("/Plugins"),
+            //    OnPrepareResponse = staticFileResponse
+            //};
 
-            var provider = new FileExtensionContentTypeProvider
-            {
-                Mappings = { [".bak"] = MimeTypes.ApplicationOctetStream }
-            };
+            //application.UseStaticFiles(staticFileOptions);
 
-            application.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(fileProvider.GetAbsolutePath("db_backups")),
-                RequestPath = new PathString("/db_backups"),
-                ContentTypeProvider = provider
-            });
+            //var provider = new FileExtensionContentTypeProvider
+            //{
+            //    Mappings = { [".bak"] = MimeTypes.ApplicationOctetStream }
+            //};
 
-            provider.Mappings[".webmanifest"] = MimeTypes.ApplicationManifestJson;
+            //application.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(fileProvider.GetAbsolutePath("db_backups")),
+            //    RequestPath = new PathString("/db_backups"),
+            //    ContentTypeProvider = provider
+            //});
 
-            application.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(fileProvider.GetAbsolutePath("icons")),
-                RequestPath = "/icons",
-                ContentTypeProvider = provider
-            });
+            //provider.Mappings[".webmanifest"] = MimeTypes.ApplicationManifestJson;
+
+            //application.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(fileProvider.GetAbsolutePath("icons")),
+            //    RequestPath = "/icons",
+            //    ContentTypeProvider = provider
+            //});
         }
 
         public static void UseKeepAlive(this IApplicationBuilder application)
