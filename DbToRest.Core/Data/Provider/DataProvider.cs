@@ -20,7 +20,7 @@ namespace DbToRest.Core.Data.Provider
         private readonly Lazy<IDocumentStore> store;
         private readonly ITypeFinder _typeFinder;
         private readonly ILogService _logService;
-        private readonly string[] SystemTableNames = {  };
+        private readonly string[] SystemTableNames = { };
         public IDocumentStore Database => store.Value;
 
 
@@ -41,7 +41,12 @@ namespace DbToRest.Core.Data.Provider
             var store = new DocumentStore
             {
                 Urls = new string[] { _dbToRestConfig.DbDataConnection },
-                Database = _dbToRestConfig.DbDatabaseName
+                Database = _dbToRestConfig.DbDatabaseName,
+                Conventions =
+                {
+                    MaxNumberOfRequestsPerSession = 10,
+                    UseOptimisticConcurrency = true
+                }
             };
 
             store.Initialize();
@@ -177,7 +182,7 @@ namespace DbToRest.Core.Data.Provider
             setupIndices();
         }
 
-     
+
 
         private void setupIndices()
         {
@@ -191,7 +196,7 @@ namespace DbToRest.Core.Data.Provider
 
         private void setupTransform()
         {
-           
+
         }
     }
 }

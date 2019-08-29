@@ -10,7 +10,7 @@ namespace DbToRest.Tests.DataProvider
     [TestFixture]
     public class DataProviderTest : BaseTest
     {
-        private DocumentHeaderResponse lastInsertedDocument = null;
+        private Guid lastInsertedDocument = Guid.NewGuid();
 
 
         private readonly IDataProvider dataProvider;
@@ -19,28 +19,35 @@ namespace DbToRest.Tests.DataProvider
             dataProvider = DbToRest.Core.DbToRestContext.Current.Resolve<IDataProvider>();
         }
 
-        //[Test, Order(1)]
-        //public void Try_Post_ADocument()
-        //{
-        //    var result = dataProvider.Provider.Documents.PostAsync("{\"name\":\"TCFOLTULU\"}");
-        //    result.Wait();
+        [Test, Order(1)]
+        public void Try_Post_ADocument()
+        {
+            using (var session = dataProvider.Database.OpenSession())
+            {
+                session.Store(new
+                {
+                    FirstName = "John",
+                    LastName = "Doe"
+                }, lastInsertedDocument.ToString());
+                session.SaveChanges();
+            }
+            Assert.IsTrue(true);
+        }
 
-        //    lastInsertedDocument = result.Result;
-        //    Assert.IsTrue(result.IsCompletedSuccessfully);
-        //}
-
-        //[Test, Order(2)]
-        //public void Try_Get_LastInsertedDocument()
-        //{
-        //    var result = dataProvider.Provider.Documents.GetAsync(lastInsertedDocument.Id);
-        //    result.Wait();
-        //    Assert.IsTrue(result.Result.Content.Contains("TCFOLTULU"));
-        //}
+        [Test, Order(2)]
+        public void Try_Get_LastInsertedDocument()
+        {
+            using (var session = dataProvider.Database.OpenSession())
+            {
+                dynamic obj = session.Load<dynamic>(lastInsertedDocument.ToString());
+                Assert.IsNotNull(obj);
+            }
+        }
 
         //[Test, Order(3)]
         //public void Try_Delete_LastInsertedDocument()
         //{
-        //    var result = dataProvider.Provider.Documents.DeleteAsync(lastInsertedDocument.Id,lastInsertedDocument.Rev);
+        //    var result = dataProvider.Provider.Documents.DeleteAsync(lastInsertedDocument.Id, lastInsertedDocument.Rev);
         //    result.Wait();
         //    Assert.IsTrue(result.Result.IsSuccess);
         //}

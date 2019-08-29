@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace DbToRest.Core.Data.Repository
 {
     public interface IBaseRepository<T> where T : class, new()
     {
-        IQueryable<T> Table();
+        IEnumerable<T> Table();
 
-        IQueryable<T> Table(Expression<Func<T, bool>> where);
+        IEnumerable<T> Table(Expression<Func<T, bool>> where);
 
         T Single(object key);
 
@@ -23,21 +22,8 @@ namespace DbToRest.Core.Data.Repository
 
         void Delete(IEnumerable<object> key);
 
-        void Insert(T value);
-
-        void Insert(List<T> value);
-
-        void Update(List<T> value);
-
-        void Update(T value);
-
-        void Update(System.Linq.Expressions.Expression<Func<T, bool>> where, params System.Linq.Expressions.Expression<Func<T, bool>>[] columns);
-
-        void Add(List<T> value);
-
-        void Add(T value);
+        void Save(List<T> value);
 
         void Save(T value);
-
     }
 }
