@@ -13,15 +13,12 @@ namespace DbToRest.Core.Data.Repository
     public class DbRepository<T> : IDbRepository<T> where T : class, new()
     {
         internal readonly IDataProvider _documentStore;
-        internal readonly IAuthenticationService _authenticationService;
 
         public DbRepository(
-            IDataProvider documentStore,
-            IAuthenticationService authenticationService
+            IDataProvider documentStore
             )
         {
             _documentStore = documentStore;
-            _authenticationService = authenticationService;
         }
 
         public virtual void Delete(Expression<Func<T, bool>> where)
@@ -58,7 +55,6 @@ namespace DbToRest.Core.Data.Repository
             {
                 if (TryValidate(value))
                 {
-                    WriteAudit(value);
                     session.Store(value);
                     session.SaveChanges();
                 }
@@ -88,8 +84,7 @@ namespace DbToRest.Core.Data.Repository
             using (var session = _documentStore.Database.OpenSession())
             {
                 var _type = typeof(T);
-
-                var user = _authenticationService.GetAuthenticatedCustomer();
+      
                 var query = session.Query<T>().AsQueryable();
 
                 query = query.Where("Deleted=@0", false);
@@ -120,40 +115,40 @@ namespace DbToRest.Core.Data.Repository
             }
         }
 
-        private void WriteAudit(T post)
-        {
-            var curentUser = _authenticationService.GetAuthenticatedCustomer();
-            if (curentUser != null)
-            {
-                if (post is TrackEntity)
-                {
-                    var activeEntity = post as TrackEntity;
-                    if (activeEntity.Id == null)
-                    {
-                        activeEntity.CreatedBy = curentUser.Id;
-                        activeEntity.CreatedAt = DateTime.Now;
-                        activeEntity.CreatedByLogId = curentUser.SessionId;
-                    }
-                    else
-                    {
-                        activeEntity.ModifiedBy = curentUser.Id;
-                        activeEntity.ModifiedAt = DateTime.Now;
-                        activeEntity.ModifiedByLogId = curentUser.SessionId;
-                    }
-                }
+        //private void WriteAudit(T post)
+        //{
+        //    var curentUser = _authenticationService.GetAuthenticatedCustomer();
+        //    if (curentUser != null)
+        //    {
+        //        if (post is TrackEntity)
+        //        {
+        //            var activeEntity = post as TrackEntity;
+        //            if (activeEntity.Id == null)
+        //            {
+        //                activeEntity.CreatedBy = curentUser.Id;
+        //                activeEntity.CreatedAt = DateTime.Now;
+        //                activeEntity.CreatedByLogId = curentUser.SessionId;
+        //            }
+        //            else
+        //            {
+        //                activeEntity.ModifiedBy = curentUser.Id;
+        //                activeEntity.ModifiedAt = DateTime.Now;
+        //                activeEntity.ModifiedByLogId = curentUser.SessionId;
+        //            }
+        //        }
 
-                //if (post is ICompanyEntity && curentUser.IsManager == false)
-                //    post.SetPropertyValue("CompanyId", curentUser.CompanyId);
-            }
-        }
+        //        //if (post is ICompanyEntity && curentUser.IsManager == false)
+        //        //    post.SetPropertyValue("CompanyId", curentUser.CompanyId);
+        //    }
+        //}
 
-        private void WriteAudit(List<T> post)
-        {
-            post.Each(t =>
-            {
-                WriteAudit(t);
-            });
-        }
+        //private void WriteAudit(List<T> post)
+        //{
+        //    post.Each(t =>
+        //    {
+        //        WriteAudit(t);
+        //    });
+        //}
 
         private bool TryValidate(object @object)
         {

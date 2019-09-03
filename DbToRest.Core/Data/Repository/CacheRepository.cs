@@ -8,9 +8,8 @@ namespace DbToRest.Core.Data.Repository
         //    private readonly ICache _cache = null;
 
         public CacheRepository(
-                IDataProvider provider,
-                IAuthenticationService authenticationService
-    ) : base(provider, authenticationService)
+                IDataProvider provider
+    ) : base(provider)
         {
         }
 

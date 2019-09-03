@@ -1,4 +1,5 @@
 ﻿using DbToRest.Core.Data.Provider;
+using DbToRest.Tests.Model;
 using MyCouch.Responses;
 using NUnit.Framework;
 using System;
@@ -10,7 +11,7 @@ namespace DbToRest.Tests.DataProvider
     [TestFixture]
     public class DataProviderTest : BaseTest
     {
-        private Guid lastInsertedDocument = Guid.NewGuid();
+        private string lastInsertedDocument ;
 
 
         private readonly IDataProvider dataProvider;
@@ -24,12 +25,16 @@ namespace DbToRest.Tests.DataProvider
         {
             using (var session = dataProvider.Database.OpenSession())
             {
-                session.Store(new
+                var entity = new TestDocumentModel
                 {
                     FirstName = "John",
                     LastName = "Doe"
-                }, lastInsertedDocument.ToString());
+                };
+                session.Store(entity);
                 session.SaveChanges();
+
+                lastInsertedDocument = entity.Id;
+
             }
             Assert.IsTrue(true);
         }
@@ -44,12 +49,13 @@ namespace DbToRest.Tests.DataProvider
             }
         }
 
-        //[Test, Order(3)]
-        //public void Try_Delete_LastInsertedDocument()
-        //{
-        //    var result = dataProvider.Provider.Documents.DeleteAsync(lastInsertedDocument.Id, lastInsertedDocument.Rev);
-        //    result.Wait();
-        //    Assert.IsTrue(result.Result.IsSuccess);
-        //}
+        [Test, Order(3)]
+        public void Try_Delete_LastInsertedDocument()
+        {
+            using (var session = dataProvider.Database.OpenSession())
+            {
+                session.Delete(lastInsertedDocument);
+            }
+        }
     }
 }
