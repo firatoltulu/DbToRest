@@ -7,11 +7,11 @@ using System.Linq;
 namespace DbToRest.Tests.Repository
 {
     [TestFixture]
-    public class ProjectRepositoryTest : BaseTest
+    public class DbRepositoryTest : BaseTest
     {
         private readonly IDbRepository<Project> _projectRepository;
 
-        public ProjectRepositoryTest()
+        public DbRepositoryTest()
         {
             _projectRepository = DbToRestContext.Current.Resolve<IDbRepository<Project>>();
         }

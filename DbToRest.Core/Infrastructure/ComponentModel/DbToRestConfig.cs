@@ -15,6 +15,11 @@
         public bool RedisEnabled { get; set; }
         public string RedisConnectionString { get; set; }
         public int? RedisDatabaseId { get; set; }
+
+        public int RedisDefaultExpireTimeOut { get; set; }
+
+        public string RedisPrefix { get; set; }
+
         public bool UseRedisToStoreDataProtectionKeys { get; set; }
         public bool UseRedisForCaching { get; set; }
         public bool UseRedisToStorePluginsInfo { get; set; }

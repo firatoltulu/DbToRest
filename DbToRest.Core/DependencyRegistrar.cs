@@ -2,6 +2,7 @@
 using DbToRest.Core.Data.Provider;
 using DbToRest.Core.Data.Repository;
 using DbToRest.Core.Infrastructure;
+using DbToRest.Core.Infrastructure.Caching;
 using DbToRest.Core.Infrastructure.ComponentModel;
 using DbToRest.Core.Services.Authentication;
 using NLog;
@@ -17,6 +18,8 @@ namespace DbToRest.Core
 
             builder.RegisterType<CookieAuthenticationService>().As<IAuthenticationService>().InstancePerLifetimeScope();
             builder.RegisterType<DataProvider>().As<IDataProvider>().InstancePerLifetimeScope();
+            builder.RegisterType<RedisCache>().As<ICache>().SingleInstance();
+
 
             builder.RegisterType<DataProvider>().As<IDataProvider>().InstancePerLifetimeScope();
 

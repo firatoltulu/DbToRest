@@ -45,7 +45,7 @@ namespace DbToRest.Core.Data.Provider
                 Conventions =
                 {
                     MaxNumberOfRequestsPerSession = 10,
-                    UseOptimisticConcurrency = true
+                    UseOptimisticConcurrency = false
                 }
             };
 
